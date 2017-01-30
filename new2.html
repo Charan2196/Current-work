@@ -1,0 +1,55 @@
+@{
+WebSecurity.InitializeDatabaseConnection("Users", "UserProfile", "UserId", "Email", true);
+}
+@{
+WebSecurity.InitializeDatabaseConnection("Users", "UserProfile", "UserId", "Email", true);
+WebMail.SmtpServer = "smtp.example.com";
+WebMail.SmtpPort = 25;
+WebMail.EnableSsl = false;
+WebMail.UserName = "support@example.com";
+WebMail.Password = "password-goes-here";
+WebMail.From = "john@example.com";
+}
+<!DOCTYPE html> 
+<html> 
+<body> 
+<h1>Request for Assistance</h1> 
+
+<form method="post" action="EmailSend.cshtml"> 
+<label>Username:</label>
+<input type="text" name="customerEmail" />
+<label>Details about the problem:</label> 
+<textarea name="customerRequest" cols="45" rows="4"></textarea> 
+<p><input type="submit" value="Submit" /></p> 
+</form> 
+
+</body> 
+</html>
+<!DOCTYPE html> 
+<html> 
+<body> 
+<h1>Request for Assistance</h1> 
+
+<form method="post" action="EmailSend.cshtml"> 
+<label>Username:</label>
+<input type="text" name="customerEmail" />
+<label>Details about the problem:</label> 
+<textarea name="customerRequest" cols="45" rows="4"></textarea> 
+<p><input type="submit" value="Submit" /></p> 
+</form> 
+@{ // Read input
+var customerEmail = Request["customerEmail"];
+var customerRequest = Request["customerRequest"];
+try
+{
+// Send email 
+WebMail.Send(to:"charandestroyer@gmail.com", subject: "Help request from - " + customerEmail, body: customerRequest ); 
+}
+catch (Exception ex )
+{
+<text>@ex</text> 
+}
+}
+
+</body> 
+</html>
